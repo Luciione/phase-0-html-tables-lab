@@ -1,12 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>HTML Tables</title>
-  </head>
-  <body>
-    <!-- Write your HTML here -->
-  </body>
+<html>
+<head>
+  <title>Test</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai-dom/1.5.0/chai-dom.min.js"></script>
+  <script>
+    // Your test code here
+    chai.use(chaiDom);
+
+    describe("<table>", () => {
+      it("exists in the HTML document", () => {
+        // Find the table in the HTML
+        const table = document.querySelector("table");
+        const hint = "The document should have a <table> element";
+
+        chai.expect(table, hint).to.exist;
+      });
+
+      it("has five rows", () => {
+        const table = document.querySelector("table");
+        const hint = "Your <table> tag needs five <tr> tags, one for each row";
+
+        chai.expect(table, hint).to.have.descendants("tr").and.have.length(5);
+      });
+
+      it("has the correct headers", () => {
+        const table = document.querySelector("table");
+        const hint1 = "The first <tr> should have three <th> elements";
+        chai.expect(table, hint1).to.have.descendants("tr > th").and.have.length(3);
+
+        const [header1, header2, header3] = table.querySelectorAll("tr > th");
+
+        chai.expect(header1).to.have.text("City");
+        chai.expect(header2).to.have.text("State");
+        chai.expect(header3).to.have.text("2017 estimate");
+      });
+
+      it("has the correct information about New York City", () => {
+        const nyRow = document.querySelectorAll("table tr")[1];
+
+        const hint1 = "Each <tr> after the first should have three <td> elements";
+        chai.expect(nyRow, hint1).to.have.descendants("td").and.have.length(3);
+
+        const [cell1, cell2, cell3] = nyRow.querySelectorAll("td");
+        chai.expect(cell1).to.have.text("New York");
+        chai.expect(cell2).to.have.text("New York");
+        chai.expect(cell3).to.have.text("8,622,698");
+      });
+
+      it("has the correct information about Los Angeles", () => {
+        const laRow = document.querySelectorAll("table tr")[2];
+
+        const hint1 = "Each <tr> after the first should have three <td> elements";
+        chai.expect(laRow, hint1).to.have.descendants("td").and.have.length(3);
+
+        const [cell1, cell2, cell3] = laRow.querySelectorAll("td");
+        chai.expect(cell1).to.have.text("Los Angeles");
+        chai.expect(cell2).to.have.text("California");
+        chai.expect(cell3).to.have.text("3,999,759");
+      });
+
+      it("has the correct information about Chicago", () => {
+        const chicagoRow = document.querySelectorAll("table tr")[3];
+
+        const hint1 = "Each <tr> after the first should have three <td> elements";
+        chai.expect(chicagoRow, hint1).to.have.descendants("td").and.have.length(3);
+
+        const [cell1, cell2, cell3] = chicagoRow.querySelectorAll("td");
+        chai.expect(cell1).to.have.text("Chicago");
+        chai.expect(cell2).to.have.text("Illinois");
+        chai.expect(cell3).to.have.text("2,716,450");
+      });
+
+      it("has the correct information about Houston", () => {
+        const houstonRow = document.querySelectorAll("table tr")[4];
+
+        const hint1 = "Each <tr> after the first should have three <td> elements";
+        chai.expect(houstonRow, hint1).to.have.descendants("td").and.have.length(3);
+
+        const [cell1, cell2, cell3] = houstonRow.querySelectorAll("td");
+        chai.expect(cell1).to.have.text("Houston");
+        chai.expect(cell2).to.have.text("Texas");
+        chai.expect(cell3).to.have.text("2,312,717");
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- Your HTML code here -->
+  <table>
+    <tr>
+      <th>City</th>
+      <th>State</th>
+      <th>2017 estimate</th>
+    </tr>
+    <tr>
+      <td>New York</td>
+      <td>New York</td>
+      <td>8,622,698</td>
+    </tr>
+    <tr>
+      <td>Los Angeles</td>
+      <td>California</td>
+      <td>3,999,759</td>
+    </tr>
+    <tr>
+      <td>Chicago</td>
+      <td>Illinois</td>
+      <td>2,716,450</td>
+    </tr>
+    <tr>
+      <td>Houston</td>
+      <td>Texas</td>
+      <td>2,312,717</td>
+    </tr>
+  </table>
+</body>
 </html>
